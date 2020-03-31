@@ -11,6 +11,7 @@
     <title>Créer une table</title>
   </head>
   <body>
+  <a href="index.php">< Retour</a> <br \> <br \>
   <?php
   session_start();
 
