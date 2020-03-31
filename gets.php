@@ -22,7 +22,6 @@
     return $res;
   }
 
-  echo json_encode(getData($db,$_POST["table"]));
   ?> <br /> <br /> <?php
 
 ?>

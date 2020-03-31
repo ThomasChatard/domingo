@@ -98,3 +98,4 @@ for ($i=1;$i<=$taille-1;$i++) // boucler taille - 1 fois : NOM TYPE
 <a href="">Ajouter une colonne</a>
 <a href="">Supprimer une colonne</a>
 <a href="choixTable.php">Voir les détails d'une table</a>
+<a href="suppression.php">Supprimer une colonne</a>

@@ -76,9 +76,9 @@
         </div>
         <input type="submit" value="Valider">
       </form>
+      <a href="createTable.php">Créer une table</a>
       <?php
         }
-
 
   }
   else // une fois la table validée --> PHP
