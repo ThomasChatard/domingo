@@ -4,22 +4,15 @@
     <meta charset="UTF-8">
     <title>Test Canvas</title>
     <?php
-    function getTable($db){
-
-      $sql='SHOW TABLES';
-      $resu = $db->query($sql);
-
-      return $resu;
-    }
 
     $nom=$_SESSION["dbname"];
     $db = mysqli_connect("localhost", "root", "","$nom");
+    include("gets.php");
     $resu = getTable($db);
     $listeTable = array();
     while ($ligne = $resu->fetch_row()) {
       $listeTable[] = $ligne[0];
     }
-    include("gets.php");
     for($i = 0; $i < sizeof($listeTable);$i++){ ?>
       <script>
       var tab = <?php echo json_encode(getStructure($db,$listeTable[$i]));?>;

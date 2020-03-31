@@ -18,14 +18,7 @@
   session_start();
   require("connexionBD.php");
   $db = connexion($_SESSION["dbname"]);
-
-  function getTable($db){
-
-    $sql='SHOW TABLES';
-    $resu = $db->query($sql);
-
-    return $resu;
-  }
+  include("gets.php");
 
   $nom=$_SESSION["dbname"];
   $db = mysqli_connect("localhost", "root", "","$nom");
@@ -39,7 +32,7 @@
     ?>
     <form action="#" id="insert" method="post">
       Table : <select name="table" id="table">
-        <option selected=""></option>
+        <option selected="">Choisissez une table</option>
         <?php
         for($i = 0; $i < sizeof($listeTable);$i++){
           ?>
@@ -54,7 +47,6 @@
     <?php
   } else {
     ?><h3 class="center">Détail de la table <?php echo $_POST["table"];?></h3><?php
-    include("gets.php");
     include("schemaStructure.php");
   }?>
 </body>
