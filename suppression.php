@@ -79,9 +79,13 @@ if(empty($_GET["drop_table"]))
 }
 else
 {
-  echo "Table supprimée";
   $sql = 'DROP TABLE '.$_GET["drop_table"];
   $resu = $db->query($sql);
+  if($resu==false){
+    echo "Impossible de supprimer cette table";
+  } else {
+    echo "Table supprimée";
+  }
   header("refresh:1;url=suppression.php");
 }
 ?>

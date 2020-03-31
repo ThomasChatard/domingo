@@ -9,12 +9,13 @@ function getTable($db,$dbname){
 
   return $resu;
 }
- $resu = getTable(mysqli_connect("localhost", "root", "","base"),$_SESSION["dbname"]);
+$nom=$_SESSION["dbname"];
+ $resu = getTable(mysqli_connect("localhost", "root", "","$nom"),$_SESSION["dbname"]);
  $listeTable = array();
  $listeColonne = array();
  while ($ligne = $resu->fetch_row()) {
-   $listeTable[] = $ligne[0];
-   $listeColonne[] = $ligne[1];
+   $listeTable[] = $ligne[1];
+   $listeColonne[] = $ligne[0];
  }
 
 

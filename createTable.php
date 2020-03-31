@@ -1,4 +1,3 @@
-
 <a href="index.php">< Retour</a>
 <?php
 
@@ -15,6 +14,7 @@ if(empty($_POST["taille"])){
 
 $foreign="";
 $primary="";
+$constraint="";
 $countPrimary=0;
 
 for ($i=1;$i<=$taille;$i++){
@@ -25,7 +25,7 @@ for ($i=1;$i<=$taille;$i++){
 }
 
 // création de la table dans la base de données
-$sql= "CREATE TABLE ".$_POST["table"]." ( ";
+$sql= "CREATE TABLE ".$_POST["table"]."( ";
 for ($i=1;$i<=$taille-1;$i++) // boucler taille - 1 fois : NOM TYPE
 {
   if(!empty($_POST["col$i"])) // vérification des colonnes non-vides (ou supprimées)
@@ -53,9 +53,10 @@ for ($i=1;$i<=$taille-1;$i++) // boucler taille - 1 fois : NOM TYPE
     }
     if(!empty($_POST["foreign$i"])) // Vérification si la colonne est une clé étrangère
     {
-      $foreign.=", FOREIGN KEY (".$_POST["col$i"].") REFERENCES ".$_POST["foreign_table$i"];
+      $foreign.=", KEY ".$_POST["col$i"]."(".$_POST["col$i"].")";
+      $constraint=", CONSTRAINT ".$_POST["col$i"]."_".$_POST["table"]." FOREIGN KEY (".$_POST["col$i"].") REFERENCES ".$_POST["foreign_table$i"];
     }
-    $sql.=", ";
+    $sql.=",";
   }
 }
   // dernière colonne de la table - dernière ligne à rentrer pour la requête (cas de la virgule)
@@ -78,20 +79,22 @@ for ($i=1;$i<=$taille-1;$i++) // boucler taille - 1 fois : NOM TYPE
     }
     if(!empty($_POST["foreign$taille"])) // Vérification s'il s'agit d'une clé étrangère
     {
-      $foreign.=", FOREIGN KEY (".$_POST["col$taille"].") REFERENCES ".$_POST["foreign_table$taille"];
+      $foreign.=", KEY ".$_POST["col$taille"]."(".$_POST["col$taille"].")";
+      $constraint=", CONSTRAINT ".$_POST["col$taille"]."_".$_POST["table"]." FOREIGN KEY (".$_POST["col$taille"].") REFERENCES ".$_POST["foreign_table$taille"];
     }
   }
 
   $sql.=$foreign;
   if($primary!="")
   {
-    $sql.=", PRIMARY KEY (".$primary.")";
+    $sql.=", PRIMARY KEY (".$primary." )";
   }
-  $sql.=" )";
+  $sql.=$constraint." ) ENGINE=InnoDB;";
 
-  echo "Requête exécutée : <br /> <br />".$sql;
+  echo "Requête exécutée : ".$sql;
   $resu = $db->query($sql); // exécution de la requête
-  ?> <br /> <br /> <?php
+
+?> <br /> <br /> <?php
   include("schemaComplet.php");
 ?>
 <br /> <br />
